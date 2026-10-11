@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camila</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="wrap">
+    <h1 id="nome"></h1>
+    <p id="subtitulo"></p>
+  </div>
+  <div class="scroll"></div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="faixa"></div></div>
+
+<div class="counter reveal" id="contador"><strong id="dias"></strong><span id="contadorTexto"></span></div>
+
+<section>
+  <div class="wrap reveal">
+    <h2 id="cartaTitulo"></h2>
+    <div class="paper" id="carta"></div>
+    <figure class="polaroid" id="polaroid"><img id="foto" alt=""><figcaption id="fotoLegenda"></figcaption></figure>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap reveal">
+    <h2 id="linhaTitulo"></h2>
+    <div class="timeline" id="linha"></div>
+  </div>
+</section>
+
+<section class="reasons">
+  <div class="wrap reveal">
+    <h2 id="motivosTitulo"></h2>
+    <div class="cards" id="motivos"></div>
+  </div>
+</section>
+
+<footer class="reveal">
+  <div class="heart" aria-hidden="true">♥</div>
+  <h2 id="final"></h2>
+  <p id="assinatura"></p>
+</footer>
+
+<script src="content.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const C = CONTENT;
+const add = (parent, tag, text, cls) => { const e = document.createElement(tag); e.textContent = text; if (cls) e.className = cls; parent.appendChild(e); return e; };
+
+document.title = C.paginaTitulo;
+["nome","subtitulo","cartaTitulo","linhaTitulo","motivosTitulo","final","assinatura"].forEach(k => $(k).textContent = C[k]);
+
+const palavras = [...C.faixa, ...C.faixa, ...C.faixa, ...C.faixa];
+palavras.forEach(t => add($("faixa"), "span", t));
+
+C.carta.forEach(t => add($("carta"), "p", t));
+C.linha.forEach(i => { const d = add($("linha"), "div", "", "item"); add(d, "h3", i.titulo); add(d, "p", i.texto); });
+C.motivos.forEach(t => add($("motivos"), "div", t, "card"));
+
+if (C.foto) { $("foto").src = C.foto; $("foto").alt = C.fotoLegenda; $("fotoLegenda").textContent = C.fotoLegenda; $("polaroid").classList.add("on"); }
+
+if (C.dataNascimento) {
+  const d = Math.floor((Date.now() - new Date(C.dataNascimento + "T00:00:00")) / 864e5);
+  if (d > 0) { $("dias").textContent = d.toLocaleString("pt-BR"); $("contadorTexto").textContent = C.contadorTexto; $("contador").classList.add("on"); }
+}
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>

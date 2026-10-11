@@ -1,0 +1,104 @@
+:root {
+  --ink: #170f2e;
+  --ink2: #241a45;
+  --berry: #e0457b;
+  --sun: #ffc857;
+  --lilac: #b79cff;
+  --paper: #fff7fb;
+  --muted: #6b6485;
+}
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "DM Sans", system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  overflow-x: hidden;
+}
+h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.02; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 2; }
+
+/* ---------- HERO ---------- */
+.hero {
+  min-height: 100svh;
+  display: flex; align-items: center;
+  background: radial-gradient(120% 90% at 20% 0%, var(--ink2), var(--ink));
+  color: var(--paper);
+  position: relative; overflow: hidden;
+}
+.blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; animation: float 14s ease-in-out infinite alternate; }
+.b1 { width: 55vmax; height: 55vmax; background: var(--berry); top: -20vmax; right: -15vmax; }
+.b2 { width: 40vmax; height: 40vmax; background: var(--lilac); bottom: -15vmax; left: -12vmax; animation-delay: -5s; }
+.b3 { width: 22vmax; height: 22vmax; background: var(--sun); bottom: 8vmax; right: 6vmax; opacity: .4; animation-delay: -9s; }
+@keyframes float { to { transform: translate(4vmax, -3vmax) scale(1.12); } }
+
+.hero h1 {
+  font-size: clamp(5rem, 26vw, 13rem);
+  font-weight: 800; letter-spacing: -.04em;
+  background: linear-gradient(100deg, var(--paper) 30%, var(--sun) 70%, var(--berry));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: rise 1.2s cubic-bezier(.2,.8,.2,1) both;
+}
+.hero p { font-size: clamp(1.15rem, 3.5vw, 1.6rem); margin-top: 1.25rem; color: #e6dcf7; max-width: 24ch; animation: rise 1.2s .25s cubic-bezier(.2,.8,.2,1) both; }
+.scroll { position: absolute; bottom: 2rem; left: 50%; width: 2px; height: 48px; background: linear-gradient(var(--paper), transparent); z-index: 2; }
+@keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+
+/* ---------- FAIXA ---------- */
+.marquee { background: var(--sun); color: var(--ink); overflow: hidden; padding: 1rem 0; transform: rotate(-1.5deg); margin: -1.2rem -2rem 0; position: relative; z-index: 3; }
+.track { display: flex; gap: 2.5rem; width: max-content; animation: scroll 28s linear infinite; font-family: "Fraunces", serif; font-weight: 800; font-size: 1.7rem; white-space: nowrap; }
+.track span::after { content: "✦"; margin-left: 2.5rem; color: var(--berry); }
+@keyframes scroll { to { transform: translateX(-50%); } }
+
+/* ---------- CONTADOR ---------- */
+.counter { text-align: center; padding: 5rem 1.5rem 0; display: none; }
+.counter.on { display: block; }
+.counter strong { display: block; font-family: "Fraunces", serif; font-size: clamp(4rem, 18vw, 8rem); font-weight: 800; color: var(--berry); line-height: 1; }
+.counter span { color: var(--muted); font-size: 1.15rem; }
+
+/* ---------- SEÇÕES ---------- */
+section { padding: 6rem 0; }
+section h2 { font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 800; margin-bottom: 2rem; }
+
+.paper { background: #fff; padding: 2.5rem 2rem; border-radius: 4px; box-shadow: 0 24px 60px -20px rgba(23,15,46,.35); transform: rotate(-.8deg); position: relative; }
+.paper::before { content: ""; position: absolute; top: -14px; left: 50%; width: 110px; height: 28px; background: rgba(255,200,87,.8); transform: translateX(-50%) rotate(3deg); }
+.paper p + p { margin-top: 1.1rem; }
+.paper p:first-child::first-letter { font-family: "Fraunces", serif; font-weight: 800; font-size: 3.4rem; float: left; line-height: .9; margin: .25rem .5rem 0 0; color: var(--berry); }
+
+.polaroid { display: none; background: #fff; padding: 14px 14px 52px; width: min(100%, 340px); margin: 3.5rem auto 0; box-shadow: 0 24px 50px -18px rgba(23,15,46,.45); transform: rotate(3deg); transition: transform .4s; }
+.polaroid.on { display: block; }
+.polaroid:hover { transform: rotate(0) scale(1.03); }
+.polaroid img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.polaroid figcaption { font-family: "Fraunces", serif; font-size: 1.5rem; text-align: center; padding-top: 12px; }
+
+/* ---------- TIMELINE ---------- */
+.timeline { position: relative; display: grid; gap: 2.5rem; padding-left: 2.2rem; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 3px; background: linear-gradient(var(--berry), var(--lilac)); border-radius: 3px; }
+.timeline .item { position: relative; }
+.timeline .item::before { content: ""; position: absolute; left: -2.2rem; top: .45rem; width: 17px; height: 17px; border-radius: 50%; background: var(--sun); border: 3px solid var(--ink); }
+.timeline h3 { font-size: 1.6rem; font-weight: 800; color: var(--berry); }
+.timeline p { color: var(--muted); }
+
+/* ---------- MOTIVOS ---------- */
+.reasons { background: var(--ink); color: var(--paper); position: relative; overflow: hidden; }
+.reasons::before { content: ""; position: absolute; width: 40vmax; height: 40vmax; border-radius: 50%; background: var(--berry); filter: blur(90px); opacity: .25; top: -15vmax; left: -10vmax; }
+.cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.card { padding: 1.6rem; border-radius: 18px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); font-size: 1.15rem; transition: transform .3s, background .3s; }
+.card:hover { transform: translateY(-6px) rotate(-1deg); background: rgba(224,69,123,.3); }
+
+/* ---------- FINAL ---------- */
+footer { padding: 7rem 1.5rem; text-align: center; }
+.heart { font-size: 3rem; color: var(--berry); display: inline-block; animation: beat 1.4s ease-in-out infinite; }
+@keyframes beat { 0%,100% { transform: scale(1); } 15% { transform: scale(1.25); } 30% { transform: scale(1); } 45% { transform: scale(1.18); } }
+footer h2 { font-size: clamp(2rem, 7vw, 3.2rem); font-weight: 800; margin: 1rem 0 .5rem; }
+footer p { color: var(--muted); font-size: 1.15rem; }
+
+/* ---------- REVEAL ---------- */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .8s, transform .8s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
